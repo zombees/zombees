@@ -4,6 +4,7 @@ require 'yaml'
 module AWSConfig
   def self.run
     aws_config = YAML.load_file('aws_config.yml')
+    p aws_config
     connection = Fog::Compute.new(aws_config)
 
     server = connection.servers.bootstrap(
@@ -13,7 +14,8 @@ module AWSConfig
     )
 
     server.wait_for { ready? }
-    server.ssh('ls')
+    p server.ssh('ls')
   end
-
 end
+
+AWSConfig.run
