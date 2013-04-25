@@ -23,6 +23,6 @@ class Server
 
   def run_command(command)
     result = @server.ssh(command)
-    result.try(:display_stdout)
+    result
   end
 end
