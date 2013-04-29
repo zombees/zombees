@@ -1,15 +1,18 @@
 require 'forwardable'
+require 'celluloid'
+require 'celluloid/pmap'
 
 class Server
+  include Celluloid
   attr_reader :config
   extend Forwardable
   def_delegator :@server, :ready?
 
-  def initialize(config)
-    @config = config
+  def initialize
   end
 
-  def bootstrap 
+  def bootstrap(config)
+    puts "bootstraping... " + Time.now.to_s
     connection = Fog::Compute.new(config)
 
     @server = connection.servers.bootstrap(
@@ -22,6 +25,7 @@ class Server
   end
 
   def run_command(command)
+    puts "running a command #{command}... " + Time.now.to_s
     result = @server.ssh(command)
     result
   end
