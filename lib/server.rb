@@ -1,6 +1,7 @@
 require 'forwardable'
 require 'celluloid'
 require 'celluloid/pmap'
+require_relative 'connection'
 
 class Server
   include Celluloid
@@ -8,14 +9,14 @@ class Server
   extend Forwardable
   def_delegator :@server, :ready?
 
-  def initialize
+  def initialize(connection)
+    @connection = connection
   end
 
   def bootstrap(config)
     puts "bootstraping... " + Time.now.to_s
-    connection = Fog::Compute.new(config)
 
-    @server = connection.servers.bootstrap(
+    @server = @connection.servers.bootstrap(
       private_key_path:  'tourfleet',
       public_key_path:   'tourfleet.pub',
       username:          'ubuntu'
