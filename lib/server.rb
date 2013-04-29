@@ -2,6 +2,7 @@ require 'forwardable'
 require 'celluloid'
 require 'celluloid/pmap'
 require_relative 'connection'
+require 'fog'
 
 class Server
   include Celluloid
@@ -13,7 +14,7 @@ class Server
     @connection = connection
   end
 
-  def bootstrap(config)
+  def bootstrap()
     puts "bootstraping... " + Time.now.to_s
 
     @server = @connection.servers.bootstrap(
