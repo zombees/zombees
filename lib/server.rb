@@ -22,6 +22,7 @@ class Server
     )
 
     @server.wait_for { ready? }
+    self
   end
 
   def run_command(command)
