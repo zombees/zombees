@@ -3,24 +3,10 @@ require 'zombees/queen'
 
 module Zombees
   describe Queen do
-    let(:config) {{ key: "some key", secret: "some secret" }}
-
-    it 'initializes with config, worker count, and command' do
-      queen = described_class.new(config: config, worker_count: 3, command: "ls")
-    end
-
-    describe '#run' do
-      it 'calls bootstrap' do
-        queen = described_class.new(config: config, worker_count: 3, command: "ls")
-        queen.should_receive(:_bootstrap).once
-        queen.run()
-      end
-    end
+    let(:queen) {described_class.new(config: {}, worker_count: 3, command: "ls")}
 
     describe '_bootstrap' do
       it 'bootstraps servers if needed' do
-        queen = described_class.new(config: config, worker_count: 3, command: "ls")
-        queen.stub(:connection)
         mock_server = double('Server')
         mock_server.should_receive(:bootstrap).exactly(3).times.and_return({})
 
@@ -28,8 +14,6 @@ module Zombees
       end
 
       it 'does not bootstraps servers' do
-        queen = described_class.new(config: config, worker_count: 3, command: "ls")
-        queen.stub(:connection)
         mock_server = double('Server')
         mock_server.should_receive(:bootstrap).exactly(3).times.and_return({})
 
