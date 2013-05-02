@@ -22,7 +22,6 @@ module Zombees
         queen = described_class.new(config: config, worker_count: 3, command: "ls")
         queen.stub(:connection)
         mock_server = double('Server')
-        mock_server.stub(:new).and_return(mock_server)
         mock_server.should_receive(:bootstrap).exactly(3).times.and_return({})
 
         queen._bootstrap(mock_server).should have(3).server
@@ -32,7 +31,6 @@ module Zombees
         queen = described_class.new(config: config, worker_count: 3, command: "ls")
         queen.stub(:connection)
         mock_server = double('Server')
-        mock_server.stub(:new).and_return(mock_server)
         mock_server.should_receive(:bootstrap).exactly(3).times.and_return({})
 
         queen._bootstrap(mock_server)

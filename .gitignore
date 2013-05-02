@@ -17,3 +17,7 @@ tmp
 _yardoc
 doc/
 aws_config.yml
+
+#VIM
+*.swp
+*.swo

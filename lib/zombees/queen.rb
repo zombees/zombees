@@ -20,9 +20,8 @@ module Zombees
       @connection ||= Connection.new()
     end
 
-    def _bootstrap(server = Server)
+    def _bootstrap(server = Server.new(connection))
       @bootstraped_servers ||= worker_count.downto(1).pmap do
-        server = server.new(connection)
         server.bootstrap(config)
       end
     end
@@ -51,3 +50,4 @@ module Zombees
     end
   end
 end
+
