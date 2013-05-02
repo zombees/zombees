@@ -16,8 +16,6 @@ module Zombees
     end
 
     def bootstrap()
-      puts "bootstraping... " + Time.now.to_s
-
       @server = @connection.servers.bootstrap(
         private_key_path:  'tourfleet',
         public_key_path:   'tourfleet.pub',
@@ -29,7 +27,6 @@ module Zombees
     end
 
     def run_command(command)
-      puts "running a command #{command}... " + Time.now.to_s
       result = @server.ssh(command)
       result
     end
