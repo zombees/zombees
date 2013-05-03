@@ -23,8 +23,8 @@ module Zombees
     end
 
     def run
-      population.pmap do |server|
-        server.run_command(@command)
+      population.pmap do |worker|
+        worker.run_command(@command)
       end
     end
   end

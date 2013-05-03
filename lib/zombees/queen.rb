@@ -1,6 +1,7 @@
 require 'fog'
 require 'yaml'
 require 'zombees/worker'
+require 'zombees/swarm'
 
 module Zombees
   class Queen
@@ -10,7 +11,9 @@ module Zombees
       @config = options.fetch(:config)
       @worker_count = options.fetch(:worker_count)
       @command = options.fetch(:command)
-      @swarm = options.fetch(:swarm)
+      @swarm = options.fetch(:swarm) {
+        Swarm.new(worker_count: worker_count, command: command, worker: Worker.new(connection))
+      }
     end
 
     def run

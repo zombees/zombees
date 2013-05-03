@@ -1,0 +1,2 @@
+require 'fog'
+Fog.mock!
