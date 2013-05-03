@@ -5,7 +5,7 @@ require 'zombees/connection'
 require 'fog'
 
 module Zombees
-  class Server
+  class Worker
     include Celluloid
     attr_reader :config
     extend Forwardable
@@ -15,7 +15,7 @@ module Zombees
       @connection = connection
     end
 
-    def bootstrap()
+    def bootstrap
       @server = @connection.servers.bootstrap(
         private_key_path:  'tourfleet',
         public_key_path:   'tourfleet.pub',

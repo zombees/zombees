@@ -1,6 +1,6 @@
 require 'fog'
 require 'yaml'
-require 'zombees/server'
+require 'zombees/worker'
 
 module Zombees
   class Queen
