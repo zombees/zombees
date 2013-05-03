@@ -12,6 +12,13 @@ module Zombees
 
       swarm.breed
     end
+    it 'does not breeds when population is full' do
+      swarm = described_class.new(worker_count: 3, command: "ls", worker: worker)
+      worker.should_receive(:bootstrap).exactly(3).times.and_return(stub(run_command: true))
+
+      swarm.breed
+      swarm.breed
+    end
 
     it 'distributes a command to the population of workers' do
       servers = (1..3).map do |i| 
@@ -20,5 +27,6 @@ module Zombees
       swarm = described_class.new(command: "ls", population: servers)
       swarm.run
     end
+
   end
 end
