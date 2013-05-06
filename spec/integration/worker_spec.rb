@@ -1,8 +1,8 @@
-require 'spec_helper'
-require 'zombees/worker'
+require 'integration_spec_helper'
+require 'zombees'
 
 module Zombees
-  describe Worker do
+  describe Worker, integration: true do
     before(:each) { Fog.mock! }
     let(:config) {{
       provider: 'AWS',

@@ -1,7 +1,7 @@
 require 'integration_spec_helper'
 require 'zombees'
 
-describe 'Running 3 servers' do
+describe 'Running 3 servers', integration: true do
   let(:config) {{ provider: 'AWS', aws_access_key_id: 'foo', aws_secret_access_key: 'bar' }}
 
   it 'runs a command in parallel on all servers when they are ready' do
