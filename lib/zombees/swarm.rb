@@ -24,7 +24,7 @@ module Zombees
 
     def run
       population.pmap do |worker|
-        worker.run_command(@command)
+        @command.run(worker)
       end
     end
   end
