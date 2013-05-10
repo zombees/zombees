@@ -24,6 +24,7 @@ module Zombees
         %Q{-C "sessionid=fake" #{ab_options} "#{url}"}
       end
     end
+
     class Aggregator
       def parse
       end

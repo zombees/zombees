@@ -23,14 +23,16 @@ module Zombees
     class MockCommand
 
     end
+
     it 'distributes a command to the population of workers' do
-      servers = (1..3).map { |i| mock("Server#{i}") }
-      command = MockCommand.new
-      stub_const('AbAdapter::Command', Class.new)
-      #command.should_receive(:run).exactly(servers.size).times.and_return(true)
-      swarm = described_class.new(command: AbAdapter, population: servers)
+      workers = (1..3).map { |i| mock("Worker#{i}") }
+
+      command = mock('command')
+      AbAdapter::Command.stub(:new).and_return(command)
+
+      command.should_receive(:run).exactly(workers.size).times.and_return(true)
+      swarm = described_class.new(command: AbAdapter, population: workers)
       swarm.run
     end
-
   end
 end
