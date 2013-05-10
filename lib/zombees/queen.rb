@@ -5,7 +5,7 @@ require 'zombees/swarm'
 
 module Zombees
   class Queen
-    attr_reader :config, :worker_count, :command, :swarm, :bootstrapped_servers
+    attr_reader :config, :worker_count, :command, :swarm
 
     def initialize(options = {})
       @config = options.fetch(:config)
@@ -25,22 +25,6 @@ module Zombees
     end
 
     def _get_results
-    end
-  end
-
-  def self.run
-    aws_config = YAML.load_file('aws_config.yml')
-
-    connection = Connection.new(aws_config)
-
-    bootstraped_servers = 3.downto(1).pmap do
-    end
-    commands_results = bootstraped_servers.pmap do |swarm|
-      swarm.run_command("ls")
-    end
-
-    commands_results.each do |cmd|
-      puts cmd.inspect + Time.now.to_s
     end
   end
 end
