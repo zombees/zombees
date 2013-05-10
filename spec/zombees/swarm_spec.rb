@@ -12,16 +12,13 @@ module Zombees
 
       swarm.breed
     end
-    it 'does not breeds when population is full' do
+
+    it 'does not breed when already populated' do
       swarm = described_class.new(worker_count: 3, command: stub(run: true), worker: worker)
       worker.should_receive(:bootstrap).exactly(3).times.and_return(stub(run_command: true))
 
       swarm.breed
       swarm.breed
-    end
-
-    class MockCommand
-
     end
 
     it 'distributes a command to the population of workers' do
