@@ -1,6 +1,6 @@
 TODO
 ========
 - Adapters for different command to run
-- Picture of zombee
-
+- Destroy
 - Simple  CLI
+- Picture of zombee

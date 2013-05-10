@@ -1,25 +1,9 @@
 require 'fog'
 require 'yaml'
-require_relative './lib/server.rb'
+require 'zombees/queen'
+require 'zombees/ab_adapter'
 
-module AWSConfig
-  def self.run
-    aws_config = YAML.load_file('aws_config.yml')
+aws_config = YAML.load_file('aws_config.yml')
 
-    connection = Connection.new(aws_config)
-
-    bootstraped_servers = 3.downto(1).pmap do
-      server = Server.new(connection)
-      server.bootstrap(aws_config)
-    end
-    commands_results = bootstraped_servers.pmap do |server|
-      server.run_command("ls")
-    end
-
-    commands_results.each do |cmd|
-      puts cmd.inspect + Time.now.to_s
-    end
-  end
-end
-
-AWSConfig.run
+result = Zombees::Queen.new(config: aws_config, worker_count: 3, command: Zombees::AbAdapter).run
+puts result.inspect

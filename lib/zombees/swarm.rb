@@ -7,7 +7,7 @@ module Zombees
 
     def initialize(options)
       @worker_count = options[:worker_count]
-      @command = options[:command]
+      @adapter = options[:command]
       @worker = options[:worker]
       @population = options[:population]
     end
@@ -22,9 +22,13 @@ module Zombees
       breed
     end
 
+    def command
+      @command ||= @adapter::Command.new
+    end
+
     def run
       population.pmap do |worker|
-        @command.run(worker)
+        command.run(worker)
       end
     end
   end
