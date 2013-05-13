@@ -14,7 +14,7 @@ module Zombees
 
     def breed
       @population ||= worker_count.downto(1).pmap do
-        worker.bootstrap
+        worker.bootstrap.tap { |w| @adapter.prepare(w) }
       end
     end
 
@@ -22,13 +22,9 @@ module Zombees
       breed
     end
 
-    def command
-      @command ||= @adapter::Command.new
-    end
-
     def run
       population.pmap do |worker|
-        command.run(worker)
+        @adapter.run(worker)
       end
     end
   end

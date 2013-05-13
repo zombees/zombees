@@ -1,20 +1,42 @@
 require 'spec_helper'
 require 'zombees/swarm'
+require 'zombees/ab_adapter'
 
 module Zombees
+  module NoopAdapter
+    def self.prepare(worker)
+
+    end
+    def self.run(worker)
+
+    end
+    class Command
+
+    end
+  end
+  class NoopWorker
+    def bootstrap; self end
+  end
   describe Swarm do
-    let(:server) { mock('Server') }
-    let(:worker) { mock('Worker', bootstrap: server) }
+    let(:worker) { NoopWorker.new }
+    let(:noop_adapter) { NoopAdapter }
 
     it 'bootstraps requested number of servers' do
-      swarm = described_class.new(worker_count: 3, command: stub(run: true), worker: worker)
-      worker.should_receive(:bootstrap).exactly(3).times.and_return(stub(run_command: true))
+      swarm = described_class.new(worker_count: 3, command: noop_adapter, worker: worker)
+      worker.should_receive(:bootstrap).exactly(3).times
+
+      swarm.breed
+    end
+
+    it 'adds command-specific configuration to workers' do
+      swarm = described_class.new(worker_count: 3, command: noop_adapter, worker: worker)
+      noop_adapter.should_receive(:prepare).with(worker).exactly(3).times
 
       swarm.breed
     end
 
     it 'does not breed when already populated' do
-      swarm = described_class.new(worker_count: 3, command: stub(run: true), worker: worker)
+      swarm = described_class.new(worker_count: 3, command: noop_adapter, worker: worker)
       worker.should_receive(:bootstrap).exactly(3).times.and_return(stub(run_command: true))
 
       swarm.breed
@@ -24,11 +46,8 @@ module Zombees
     it 'distributes a command to the population of workers' do
       workers = (1..3).map { |i| mock("Worker#{i}") }
 
-      command = mock('command')
-      AbAdapter::Command.stub(:new).and_return(command)
-
-      command.should_receive(:run).exactly(workers.size).times.and_return(true)
-      swarm = described_class.new(command: AbAdapter, population: workers)
+      NoopAdapter.should_receive(:run).exactly(workers.size).times.and_return(true)
+      swarm = described_class.new(command: NoopAdapter, population: workers)
       swarm.run
     end
   end

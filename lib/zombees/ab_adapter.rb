@@ -1,5 +1,20 @@
 module Zombees
   module AbAdapter
+    def self.prepare(worker)
+      Preparer.new.prepare(worker)
+    end
+    def self.run(worker)
+      Command.new.run(worker)
+    end
+
+    class Preparer
+      def prepare(worker)
+        puts "PREPARING..."
+        result = worker.run_command('sudo apt-get -y update && sudo apt-get -y install apache2-utils')
+        puts "Preparation result #{result.inspect}"
+      end
+    end
+
     class Command
       attr_reader :requests, :concurrency, :url, :ab_options
 

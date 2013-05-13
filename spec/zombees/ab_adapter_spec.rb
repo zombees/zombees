@@ -2,6 +2,21 @@ require 'spec_helper'
 require 'zombees/ab_adapter'
 
 module Zombees
+  describe AbAdapter do
+    it 'prepares the worker supplied' do
+      worker = mock('worker')
+      worker.should_receive(:run_command).with('yum install httpd-tools')
+      described_class.prepare(worker)
+    end
+    it 'runs a command on a command object' do
+      worker = stub('worker')
+      mock_command = mock('command')
+      AbAdapter::Command.stub(:new).and_return(mock_command)
+      mock_command.should_receive(:run).with(worker)
+      described_class.run(worker)
+    end
+  end
+
   module AbAdapter
     describe Command do
       context 'command generation' do
@@ -26,6 +41,13 @@ module Zombees
         worker = mock('Worker')
         worker.should_receive(:run_command).with('ab')
         subject.run(worker)
+      end
+    end
+    describe Preparer do
+      it 'prepares the worker supplied' do
+        worker = mock('worker')
+        worker.should_receive(:run_command).with('yum install httpd-tools')
+        subject.prepare(worker)
       end
     end
   end
