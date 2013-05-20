@@ -9,9 +9,7 @@ module Zombees
 
     class Preparer
       def prepare(worker)
-        puts "PREPARING..."
-        result = worker.run_command('sudo apt-get -y update && sudo apt-get -y install apache2-utils')
-        puts "Preparation result #{result.inspect}"
+        worker.run_command('sudo apt-get -y update && sudo apt-get -y install apache2-utils')
       end
     end
 

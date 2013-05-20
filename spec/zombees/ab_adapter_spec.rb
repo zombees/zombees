@@ -5,7 +5,7 @@ module Zombees
   describe AbAdapter do
     it 'prepares the worker supplied' do
       worker = mock('worker')
-      worker.should_receive(:run_command).with('yum install httpd-tools')
+      worker.should_receive(:run_command).with(/apt-get -y update.*apt-get -y install/)
       described_class.prepare(worker)
     end
     it 'runs a command on a command object' do
@@ -41,13 +41,6 @@ module Zombees
         worker = mock('Worker')
         worker.should_receive(:run_command).with('ab')
         subject.run(worker)
-      end
-    end
-    describe Preparer do
-      it 'prepares the worker supplied' do
-        worker = mock('worker')
-        worker.should_receive(:run_command).with('yum install httpd-tools')
-        subject.prepare(worker)
       end
     end
   end
