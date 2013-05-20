@@ -1,10 +1,16 @@
 module Zombees
-  module AbAdapter
-    def self.prepare(worker)
+  class AbAdapter
+    attr_reader :config
+    def initialize(config={})
+      @config = config
+    end
+
+    def prepare(worker)
       Preparer.new.prepare(worker)
     end
-    def self.run(worker)
-      Command.new.run(worker)
+
+    def run(worker)
+      Command.new(config).run(worker)
     end
 
     class Preparer

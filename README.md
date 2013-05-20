@@ -6,3 +6,4 @@ TODO
 - Destroy
 - Simple  CLI
 - Picture of zombee
+- Verbose mode
