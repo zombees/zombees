@@ -23,9 +23,10 @@ module Zombees
     end
 
     def run
-      population.pmap do |worker|
+      results = population.pmap do |worker|
         @adapter.run(worker)
       end
+      @adapter.parse(results)
     end
   end
 end
