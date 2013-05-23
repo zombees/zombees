@@ -37,6 +37,16 @@ module Zombees
       described_class.new.parse(hello: 'world')
     end
 
+    it 'parses and aggregates the result' do
+      mock_parser = mock('parser')
+      mock_aggregator = mock('aggregator')
+      AbAdapter::Parser.stub(:new).with(hello: 'world').and_return(mock_parser)
+      AbAdapter::Aggregator.stub(:new).with(command: 'results').and_return(mock_aggregator)
+      mock_parser.should_receive(:parse).and_return(command: 'results')
+      mock_aggregator.should_receive(:aggregate)
+
+      described_class.new.aggregate(hello: 'world')
+    end
   end
 
   describe AbAdapter::Command do
@@ -85,7 +95,38 @@ module Zombees
       data.should have(3).results
     end
   end
+  describe AbAdapter::Aggregator do
+    it 'doesnt have any keys if input doesnt have any' do
+      input = [{foo: :bar},{baz: :bat}]
+      subject = described_class.new(input)
+      result = subject.aggregate
+      result.should_not have_key(:time_per_request)
+      result.should_not have_key(:complete_requests)
+    end
+    it 'totalize number of completed requests' do
+      input = [{complete_requests: 10}, {complete_requests: 15}]
+      subject = described_class.new(input)
+      result = subject.aggregate
+      result.should have_key(:complete_requests)
+      result[:complete_requests].should == 25
+    end
+    it 'totalize number of completed requests' do
+      input = [{failed_requests: 2}, {failed_requests: 1}]
+      subject = described_class.new(input)
+      result = subject.aggregate
+      result.should have_key(:failed_requests)
+      result[:failed_requests].should == 3
+    end
+    it 'averages time per request' do
+      input = [{time_per_request: 1.2}, {time_per_request: 1.6}]
+      subject = described_class.new(input)
+      result = subject.aggregate
+      result.should have_key(:time_per_request)
+      result[:time_per_request].should == 1.4
+    end
+  end
 end
+
 
 describe Fog::SSH::Result do
   it { described_class.instance_methods.should include :stdout }

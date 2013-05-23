@@ -26,7 +26,7 @@ module Zombees
       results = population.pmap do |worker|
         @adapter.run(worker)
       end
-      @adapter.parse(results)
+      @adapter.aggregate(results)
     end
   end
 end

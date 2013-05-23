@@ -47,7 +47,7 @@ module Zombees
       workers = (1..3).map { |i| mock("Worker#{i}") }
 
       NoopAdapter.should_receive(:run).exactly(workers.size).times.and_return(true)
-      NoopAdapter.should_receive(:parse).with([true, true, true]).once.and_return(true)
+      NoopAdapter.should_receive(:aggregate).with([true, true, true]).once.and_return(true)
       swarm = described_class.new(command: NoopAdapter, population: workers)
       swarm.run
     end

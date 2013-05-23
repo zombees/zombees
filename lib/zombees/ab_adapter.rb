@@ -13,8 +13,13 @@ module Zombees
       Command.new(config).run(worker)
     end
 
-    def parse(output)
-      Parser.new(output).parse
+    def parse(output_of_commands)
+      Parser.new(output_of_commands).parse
+    end
+
+    def aggregate(output_of_commands)
+      parse_result = parse(output_of_commands)
+      Aggregator.new(parse_result).aggregate
     end
 
     class Preparer
@@ -49,7 +54,34 @@ module Zombees
     end
 
     class Aggregator
-      def parse
+      attr_reader :parsed_results
+      def initialize(parsed_results)
+        @parsed_results = parsed_results
+      end
+
+      def sum(key)
+        values = parsed_results.map { |res| res[key] }.compact
+        values.inject(:+)
+      end
+
+      def average(key)
+        values = parsed_results.map { |res| res[key] }.compact
+        if total_values = values.inject(:+)
+          total_values / values.count
+        end
+      end
+
+      def hash_result(key, aggregator)
+        value = self.send(aggregator, key)
+        value ? {key => value} : {}
+      end
+
+      def aggregate
+        {}.tap do |result|
+          result.merge! hash_result(:complete_requests, :sum)
+          result.merge! hash_result(:failed_requests, :sum)
+          result.merge! hash_result(:time_per_request, :average)
+        end
       end
     end
 
