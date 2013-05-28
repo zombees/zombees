@@ -16,4 +16,7 @@ RSpec.configure do |config|
   config.order = 'random'
 
   config.filter_run_excluding :integration
+  if ENV['CI']
+    config.filter_run_excluding :local
+  end
 end

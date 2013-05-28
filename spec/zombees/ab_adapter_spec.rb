@@ -67,7 +67,7 @@ module Zombees
       it('should pass the url') { should match '"http://a.co"$' }
     end
 
-    it 'generate a valid ab command', integration: true do
+    it 'generate a valid ab command', integration: true, local: true do
       command = described_class.new(requests: 1, concurrency: 1, url: 'http://www.google.com/').command + "> /dev/null"
       result = system(command)
       result.should be_true
