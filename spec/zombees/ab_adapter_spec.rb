@@ -68,7 +68,7 @@ module Zombees
     end
 
     it 'generate a valid ab command', integration: true do
-      command = described_class.new(requests: 1, concurrency: 1, url: 'http://www.google.com/').command
+      command = described_class.new(requests: 1, concurrency: 1, url: 'http://www.google.com/').command + "> /dev/null"
       result = system(command)
       result.should be_true
     end
