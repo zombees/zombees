@@ -9,8 +9,7 @@ describe 'Running 3 servers', integration: true do
     alias_method :original_run, :run
 
     def run(commands, &blk)
-      last_result = original_run
-      commands.map do |command|
+      Array(commands).map do |command|
         result = Fog::SSH::Result.new(command)
       end
     end
