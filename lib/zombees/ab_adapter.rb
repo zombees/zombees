@@ -1,20 +1,28 @@
 module Zombees
   class AbAdapter
     attr_reader :config
+    attr_writer :command_source
+    attr_writer :preparer_source
+    attr_writer :parser_source
     def initialize(config={})
       @config = config
     end
 
+    def command_source; @command_source ||= Command.public_method(:new) end 
+    def preparer_source; @preparer_source ||= Preparer.new end
+    def parser_source(output_of_commands); @parser_source ||= Parser.new(output_of_commands) end
+    private :command_source, :preparer_source, :parser_source
+
     def prepare(worker)
-      Preparer.new.prepare(worker)
+      preparer_source.prepare(worker)
     end
 
     def run(worker)
-      Command.new(config).run(worker)
+      command_source.call(config).run(worker)
     end
 
     def parse(output_of_commands)
-      Parser.new(output_of_commands).parse
+      parser_source(output_of_commands).parse
     end
 
     def aggregate(output_of_commands)

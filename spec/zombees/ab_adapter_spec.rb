@@ -14,19 +14,25 @@ module Zombees
 
     it 'runs a command on a command object' do
       worker = stub('worker')
-      mock_command = mock('command')
-      AbAdapter::Command.stub(:new).and_return(mock_command)
+      mock_command = mock('command') 
+      subject.command_source = ->(config) { mock_command }
+
       mock_command.should_receive(:run).with(worker)
+
       subject.run(worker)
     end
 
     it 'runs a command with specified config' do
+      expected_config = { hello: 'world' }
+      subject = described_class.new(expected_config)
       worker = stub('worker')
-      mock_command = mock('command')
-      AbAdapter::Command.stub(:new).with(hello: 'world').and_return(mock_command)
-      mock_command.should_receive(:run).with(worker)
 
-      described_class.new(hello: 'world').run(worker)
+      subject.command_source = ->(config) { 
+        config.should == expected_config
+        stub('command').as_null_object 
+      }
+
+      subject.run(worker)
     end
 
     it 'parsers the command result' do
