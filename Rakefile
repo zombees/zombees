@@ -11,3 +11,10 @@ end
 task :run_all_specs => :spec do
    Rake.sh 'bundle exec rspec --tag @integration'
 end
+
+desc 'Run all specs with code coverage'
+task :coverage do
+  ENV['COVERAGE'] = 'true'
+  Rake::Task['spec'].execute
+  Rake::Task['run_all_specs'].execute
+end
