@@ -22,6 +22,21 @@ module Zombees
       expect(worker).to be_ready
     end
 
+    it 'should destroy the server if its ready', focus: true do 
+      worker = described_class.new(connection)
+      worker.bootstrap
+      worker.server.should_receive(:destroy)
+      worker.shutdown
+    end
+
+    it 'should not destroy the server if ts not ready to shutdown', focus: true do 
+      worker = described_class.new(connection)
+      worker.bootstrap
+      worker.server.stub(:ready?, false)
+      worker.server.should_not_receive(:destroy)
+      worker.shutdown
+    end
+
     it 'runs the command request on a worker' do
       worker = described_class.new(connection)
       worker.bootstrap

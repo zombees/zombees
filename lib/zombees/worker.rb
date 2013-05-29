@@ -8,6 +8,7 @@ module Zombees
   class Worker
     include Celluloid
     attr_reader :config
+    attr_reader :server
     extend Forwardable
     def_delegator :@server, :ready?
 
@@ -29,6 +30,14 @@ module Zombees
     def run_command(command)
       result = @server.ssh(command)
       result
+    end
+
+    def shutdown
+      if @server && @server.ready?
+        @server.destroy
+      else
+        #logger : check console
+      end
     end
   end
 end
