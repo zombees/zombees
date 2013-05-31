@@ -19,8 +19,11 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'celluloid-pmap'
+  spec.add_dependency 'celluloid', '~>0.13.0'
   spec.add_dependency 'fog', '~>1.8.0'
   spec.add_dependency 'net-ssh','~>2.5.0'
+  spec.add_dependency 'yell'
+  spec.add_dependency 'colorize'
 
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency "bundler", "~> 1.3"
