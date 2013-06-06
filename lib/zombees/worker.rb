@@ -36,7 +36,7 @@ module Zombees
       if @server && @server.ready?
         @server.destroy
       else
-        #logger : check console
+        logger.error "zombie bee is too badly damaged to get to the graveyard"
       end
     end
   end
