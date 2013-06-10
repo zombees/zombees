@@ -9,7 +9,7 @@ module Zombees
       aws_access_key_id: 'asdf',
       aws_secret_access_key: 'ghi'
     }}
-    let(:connection) { Connection.new(config) }
+    let(:connection) { Connection.instance(config) }
 
     it 'creates a worker instance' do
       worker = described_class.new(connection)

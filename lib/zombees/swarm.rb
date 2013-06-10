@@ -1,22 +1,26 @@
 require 'celluloid'
 require 'celluloid/pmap'
 require 'yell'
+require 'zombees/swarm_options'
+require 'forwardable'
 
 module Zombees
   class Swarm
-    attr_reader :worker_count, :command, :worker
+    attr_reader :worker_count, :command, :honey_comb
     include Yell::Loggable
+    extend Forwardable
 
-    def initialize(options)
-      @worker_count = options[:worker_count]
-      @adapter = options[:command]
-      @worker = options[:worker]
-      @population = options[:population]
+    def initialize(options, population=nil)
+      @worker_count = options.worker_count
+      @adapter = options.command
+      @honey_comb = options.honey_comb
+      @population = population
     end
 
     def breed
       logger.info "Resurrecting the bees population of #{worker_count}"
       @population ||= worker_count.downto(1).pmap do |index|
+        worker = honey_comb.worker
         begin 
           logger.info "Bee #{ index } is getting ready to fight"
           worker.bootstrap.tap { |w| @adapter.prepare(w) }
@@ -24,6 +28,7 @@ module Zombees
           logger.error "ARGH! Bee #{ index } stayed dead: #{e.inspect}"
           worker.shutdown(e)
         end
+        worker
       end
 
       #logger.debug ">>> population"

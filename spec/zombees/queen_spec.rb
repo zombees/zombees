@@ -17,7 +17,7 @@ module Zombees
     it 'creates a swarm with default options' do
       queen = described_class.new(config: {foo: :bar}, worker_count: 3, command: 'ls')
       queen.swarm_source = ->(options) do
-        options[:honey_comb].config[:foo].should eq :bar
+        options.honey_comb.config[:foo].should eq :bar
         stub(run: true)
       end
       queen.run

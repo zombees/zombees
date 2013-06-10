@@ -3,10 +3,12 @@ require 'celluloid'
 require 'celluloid/pmap'
 require 'zombees/connection'
 require 'fog'
+require 'yell'
 
 module Zombees
   class Worker
     include Celluloid
+    include Yell::Loggable
     attr_reader :config
     attr_reader :server
     extend Forwardable

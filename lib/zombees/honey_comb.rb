@@ -1,19 +1,21 @@
-require 'fog'
+require 'zombees/worker'
+require 'zombees/connection'
+require 'thread'
 
-class HoneyComb
-  attr_reader :config
+module Zombees
+  class HoneyComb
+    attr_reader :config
 
-  def worker
-    # TODO TEMPORARELY!
-    require 'zombees/worker'
-    Worker.new(connection)
+    def worker
+      Worker.new(connection)
+    end
+
+    def initialize(config)
+      @config = config
+    end
+
+    def connection
+      Connection.instance(config)
+    end
   end
-  def initialize(config)
-    @config = config
-  end
-
-  def connection
-    @connection ||= Connection.new(config)
-  end
-
 end

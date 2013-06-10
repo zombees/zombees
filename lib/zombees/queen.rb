@@ -23,9 +23,10 @@ module Zombees
     end
 
     def swarm
-      swarm_source.call(worker_count: worker_count,
+      swarm_source.call(SwarmOptions.new(
+                        worker_count: worker_count,
                   command: command,
-                  honey_comb: HoneyComb.new(config))
+                  honey_comb: HoneyComb.new(config)))
     end
 
     def swarm_source
