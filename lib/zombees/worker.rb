@@ -21,7 +21,7 @@ module Zombees
     def bootstrap
       @server = @connection.servers.bootstrap(
         private_key_path:  'tourfleet',
-        public_key_path:   'tourfleet.pub',
+        key_name:          :fog_default,
         username:          'ubuntu'
       )
 

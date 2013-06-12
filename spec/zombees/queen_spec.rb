@@ -6,6 +6,9 @@ module Zombees
     let(:swarm) { mock('Swarm') }
     let(:queen) {described_class.new(config: {}, worker_count: 3, command: "ls", swarm: swarm)}
 
+    before do
+      Connection.stub(:import_key_pair)
+    end
     describe '#run' do
       it 'runs the swarm' do
         swarm.should_receive(:run)

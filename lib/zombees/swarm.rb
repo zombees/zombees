@@ -31,8 +31,6 @@ module Zombees
         worker
       end
 
-      #logger.debug ">>> population"
-      #@population.map { |w| logger.debug "worker: #{ w.object_id }; server: #{ w.server.inspect }" }
     end
 
     def population

@@ -12,10 +12,11 @@ module Zombees
 
     def initialize(config)
       @config = config
+      Connection.import_key_pair(config)
     end
 
     def connection
-      Connection.instance(config)
+      Connection.new(config)
     end
   end
 end
