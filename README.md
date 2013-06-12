@@ -4,7 +4,7 @@
 
 TODO
 ========
-- Destroy
+- Simple readme with example of usage
 ------
 - Simple  CLI
 - Picture of zombee
