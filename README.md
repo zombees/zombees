@@ -2,9 +2,9 @@
 [![Code Climate](https://codeclimate.com/github/zombees/zombees.png)](https://codeclimate.com/github/zombees/zombees)
 [![Coverage Status](https://coveralls.io/repos/zombees/zombees/badge.png?branch=master)](https://coveralls.io/r/zombees/zombees?branch=master)
 
+![logo](https://github.com/zombees/zombees/blob/master/zombee.png)
+
 TODO
-========
-- Simple readme with example of usage
 ------
 - Simple  CLI
 - Picture of zombee
