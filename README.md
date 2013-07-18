@@ -2,7 +2,7 @@
 [![Code Climate](https://codeclimate.com/github/zombees/zombees.png)](https://codeclimate.com/github/zombees/zombees)
 [![Coverage Status](https://coveralls.io/repos/zombees/zombees/badge.png?branch=master)](https://coveralls.io/r/zombees/zombees?branch=master)
 
-![logo](https://github.com/zombees/zombees/blob/master/zombee.png)
+![logo](https://raw.github.com/zombees/zombees/master/zombee.png)
 
 TODO
 ------
