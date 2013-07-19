@@ -56,3 +56,5 @@ TODO
 - Adapters for different command to run
   - Siege
   - Tourbus
+
+Thanks to [aimzatron](https://github.com/aimzatron) for the logo!
