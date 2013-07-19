@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Zombees::VERSION
   spec.authors       = ["Maxim Filimonov","Solomon White"]
   spec.email         = ["tpaktopsp@gmail.com", "rubysolo@gmail.com"]
-  spec.description   = %q{Zombees}
-  spec.summary       = %q{Distributed load testing in Ruby}
+  spec.description   = %q{Distributed load testing in Ruby using your own cloud}
+  spec.summary       = %q{Distributed load testing in Ruby using your own cloud}
   spec.homepage      = "http://github.com/zombees/zombees"
   spec.license       = "MIT"
 
