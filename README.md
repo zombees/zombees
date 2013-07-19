@@ -4,6 +4,13 @@
 
 ![logo](https://raw.github.com/zombees/zombees/master/zombee.png)
 
+## Description
+This gem allows you to perform distributed load testing across multiple virtual machines running in your cloud of choice. 
+Supported clouds:
+http://fog.io/about/provider_documentation.html 
+## Supported load testing utilities
+- Apache bench ( ab_adapter )
+
 ## Installation
 
 Add this line to your application's Gemfile:
