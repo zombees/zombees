@@ -57,4 +57,7 @@ TODO
   - Siege
   - Tourbus
 
-Thanks to [aimzatron](https://github.com/aimzatron) for the logo!
+## Contributors
+- [rubysolo](https://github.com/rubysolo)
+- [Maxim-Filimonov](https://github.com/Maxim-Filimonov)
+- [aimzatron](https://github.com/aimzatron) - the awesome logo author.
