@@ -3,6 +3,9 @@
 [![Coverage Status](https://coveralls.io/repos/zombees/zombees/badge.png?branch=master)](https://coveralls.io/r/zombees/zombees?branch=master)
 
 ![logo](https://raw.github.com/zombees/zombees/master/zombee.png)
+![logo](https://raw.github.com/zombees/zombees/master/zombee.png)
+![logo](https://raw.github.com/zombees/zombees/master/zombee.png)
+![logo](https://raw.github.com/zombees/zombees/master/zombee.png)
 
 ## Description
 This gem allows you to perform distributed load testing across multiple virtual machines running in your cloud of choice. 
